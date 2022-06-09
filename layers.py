@@ -1,3 +1,4 @@
+# License removed for repository anonymization
 import dgl.function as fn
 import torch
 import torch.nn as nn
