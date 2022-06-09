@@ -47,7 +47,7 @@ Download code from [their repository](https://github.com/zaixizhang/GraphMI) and
 Download code from [their repository](https://github.com/xinleihe/link_stealing_attack) (attack-2) and use our data pipeline
 
 
-### Running Defense
+## Running Defense
 ```bash
 python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method zorro-hard -ntrials 10 -attack_type explainsim -use_defense 5 -epsilon {eps}
 ```
