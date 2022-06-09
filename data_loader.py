@@ -195,7 +195,7 @@ def load_cora_ml(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
     A = graph['A']
     y = torch.tensor(graph['z'])
 
-    x = np.load('w2v_embeddings.npy',allow_pickle=True)
+    x = np.load('./Dataset/w2v_embeddings.npy',allow_pickle=True)
     x = torch.tensor(x,dtype=torch.float)
     Acoo = A.tocoo()
 
@@ -432,17 +432,28 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
                 # _, feat_exp_i, _ = load_soft_mask(exp_folder, i)
                 # # # remove extra dimension
                 # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
-                feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+                if device == "cuda":
+                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+                else:
+                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
                 feat_exp_i = feat_exp_i.cpu()
             elif exp_type == "zorro-hard":
                 # feat_exp_i = load_minimal_nodes_and_features_sets_zorro(exp_folder, i, 
                 # check_for_initial_improves=False, isBitcoin=True)[0][1]
                 # # remove extra dimension
                 # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
-                feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+                if device == "cuda":
+                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+                else:
+                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
                 feat_exp_i = feat_exp_i.cpu()
             else:
-                feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+                if device == "cuda":
+                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+                else:
+                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+                feat_exp_i = feat_exp_i.cpu()
+
             all_feat_exp.append(feat_exp_i)
         print("all_feat_exp", all_feat_exp)
         # convert list of arrays to single array!
@@ -570,7 +581,7 @@ def load_data(args):
 
 
 
-        return load_bitcoin('./bitcoinalpha.csv', use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp, 
+        return load_bitcoin('./Dataset/bitcoinalpha.csv', use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
                             exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method, 
                             use_exp_with_loss = args.use_exp_as_reconstruction_loss, get_fidelity = args.get_fidelity, 
                             use_defense = args.use_defense, get_intersection=args.get_intersection, 
@@ -586,7 +597,7 @@ def load_data(args):
                                    num_layers=args.nlayers, dropout=args.dropout2, dropout_adj=args.dropout_adj2,
                                    sparse=args.sparse)
 
-        return load_cora_ml('./cora_ml.npz', use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
+        return load_cora_ml('./Dataset/cora_ml.npz', use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
                             exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method,
                             use_exp_with_loss=args.use_exp_as_reconstruction_loss, get_fidelity=args.get_fidelity,
                             use_defense=args.use_defense, get_intersection=args.get_intersection, epsilon=args.epsilon,
