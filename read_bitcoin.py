@@ -1,3 +1,4 @@
+# License removed for repository anonymization
 import os
 
 import numpy as np
