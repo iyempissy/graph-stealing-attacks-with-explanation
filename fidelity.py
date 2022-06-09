@@ -1,3 +1,4 @@
+# License removed for repository anonymization
 import torch
 from torch_geometric.nn import MessagePassing
 from torch_geometric.utils import k_hop_subgraph
