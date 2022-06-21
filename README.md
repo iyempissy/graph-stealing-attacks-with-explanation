@@ -1,6 +1,6 @@
 # Anonymized code for the paper: Private Graph Extraction via Feature Explanations
 
-## Motivation
+<!-- ## Motivation
 <p align=center><img style="vertical-align:middle" width="500" height="290" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/motivation.png" /></p>
 
 ### Problem Definition: 
@@ -11,7 +11,7 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 
 
 ## Attack taxonomy based on attacker’s knowledge
-<p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p>
+<p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p> -->
 
 
 ## Running Explanation Attacks
