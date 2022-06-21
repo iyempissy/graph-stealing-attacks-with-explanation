@@ -1,5 +1,18 @@
-# Graph Stealing Attacks with Explanation
-Anonymized code for the paper: Private Graph Extraction via Feature Explanations
+# Anonymized code for the paper: Private Graph Extraction via Feature Explanations
+
+## Motivation
+<p align=center><img style="vertical-align:middle" width="500" height="290" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/motivation.png" /></p>
+
+### Problem Definition: 
+Given the explanation and/or some auxiliary information, can we reconstruct the private graph?
+
+### Attack example: Graph Stealing Attacks with Explanation and Features (GSEF)
+![alt text](https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/GSEF.png?raw=true)
+
+
+## Attack taxonomy based on attacker’s knowledge
+<p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p>
+
 
 ## Running Explanation Attacks
 
