@@ -1,4 +1,7 @@
-# Anonymized code for the paper: Private Graph Extraction via Feature Explanations
+# Private Graph Extraction via Feature Explanations
+### by anonymous authors
+This repository contains additional details and reproducibility of the stated results. 
+We will make the repository publicly available upon acceptance. 
 
 <!-- ## Motivation
 <p align=center><img style="vertical-align:middle" width="500" height="290" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/motivation.png" /></p>
