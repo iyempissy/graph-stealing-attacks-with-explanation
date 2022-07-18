@@ -16,6 +16,55 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 ## Attack taxonomy based on attacker’s knowledge
 <p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p> -->
 
+## Results
+
+| Exp       | Method      | Cora |    | CoraML |    | Bitcoin |    |
+|-----------|-------------|:----:|:--:|:------:|:--:|:-------:|:--:|
+|           |             | AUC  | AP | AUC    | AP | AUC     | AP |
+| Baselines | FeatureSim  | 0.796 $\pm$ 0.	| 0.822 $\pm$ 0. | 0.736 $\pm$ 0.	| 0.776 $\pm$ 0. | 0.536 $\pm$ 0.	| 0.476 $\pm$ 0.|
+|           | LSA         | 0.794 $\pm$ 0.	| 0.829 $\pm$ 0. | 0.728 $\pm$ 0.	| 0.759 $\pm$ 0. | 0.530 $\pm$ 0.	| 0.500 $\pm$ 0.|
+|           | GraphMI     | 0.859 $\pm$ 0.	| 0.834 $\pm$ 0. | 0.815 $\pm$ 0.	| 0.810 $\pm$ 0. | 0.583 $\pm$ 0.	| 0.515 $\pm$ 0.|
+|           | SLAPS       | 0.716 $\pm$ 0.	| 0.757 $\pm$ 0. | 0.682 $\pm$ 0.	| 0.738 $\pm$ 0. | 0.590 $\pm$ 0.	| 0.557 $\pm$ 0.|
+|           |             |      |    |        |    |         |    |
+|    Grad   | GSEF-Concat | 0.694 $\pm$ 0. | 0.733 $\pm$ 0.  | 0.685 $\pm$ 0. | 0.749 $\pm$ 0. | 0.447 $\pm$ 0. | 0.476 $\pm$ 0.|
+|           | GSEF-Mult   |0.692 $\pm$ 0. | 0.749 $\pm$ 0. | 0.683 $\pm$ 0. | 0.762 $\pm$ 0. | 0.266 $\pm$ 0. | 0.381 $\pm$ 0.|
+|           | GSEF        |$\underline{0.947}$ $\pm$ 0. | $\underline{0.955}$ $\pm$ 0. | $\bf{0.902}$ $\pm$ 0. 	| $\underline{0.832}$ $\pm$ 0. | $\bf{0.700}$ $\pm$ 0. | $\bf{0.715}$ $\pm$ 0.|
+|           | GSE         |0.870 $\pm$ 0. | 0.893 $\pm$ 0. | 0.689 $\pm$ 0. | 0.761 $\pm$ 0. | 0.254 $\pm$ 0. | 0.376 $\pm$ 0.|
+|           | ExplainSim  | $\bf{0.983}$ $\pm$ 0. | $\bf{0.980}$ $\pm$ 0. | 0.900 $\pm$ 0. | $\bf{0.904}$ $\pm$ 0. | $\underline{0.694}$ $\pm$ 0. | $\underline{0.656}$ $\pm$ 0.|
+|           |             |      |    |        |    |         |    |
+|    Grad-I   | GSEF-Concat | 0.700 $\pm$ 0.  | 0.755 $\pm$ 0.  | 0.703 $\pm$ 0. 	| 0.753 $\pm$ 0.  | 0.522 $\pm$ 0. 	| 0.526 $\pm$ 0. |
+|           | GSEF-Mult   | 0.665 $\pm$ 0.  | 0.702 $\pm$ 0.  | 0.710 $\pm$ 0.  | 0.743 $\pm$ 0.  | 0.228 $\pm$ 0. 	| 0.363 $\pm$ 0. |
+|           | GSEF        | $\underline{0.914}$ $\pm$ 0. 	| $\underline{0.917}$ $\pm$ 0.  | $\underline{0.802}$ $\pm$ 0. 	| $\bf{0.842}$ $\pm$ 0.  | $\bf{0.710}$ $\pm$ 0. 	| $\bf{0.725}$ $\pm$ 0. |
+|           | GSE         | 0.872 $\pm$ 0. 	| 0.900 $\pm$ 0.  |0.725 $\pm$ 0. 	| 0.790 $\pm$ 0.  | 0.256 $\pm$ 0. 	| 0.377 $\pm$ 0. |
+|           | ExplainSim  | $\bf{0.983}$  $\pm$ 0. 	| $\bf{0.978}$  $\pm$ 0.  | $\bf{0.908}$  $\pm$ 0. 	| $\bf{0.911}$  $\pm$ 0.  | 0.690 $\pm$ 0. 	| 0.651 $\pm$ 0. |
+|           |             |      |    |        |    |         |    |
+|    Zorro   | GSEF-Concat | 0.823 $\pm$ 0.	| 0.860 $\pm$ 0.          | 0.735 $\pm$ 0.	| 0.786 $\pm$ 0. | $\underline{0.575}$ $\pm$ 0. | 0.529 $\pm$ 0.|
+|           | GSEF-Mult   | 0.723 $\pm$ 0.	| 0.756 $\pm$ 0. | 0.681 $\pm$ 0.	| 0.697 $\pm$ 0. | 0.399 $\pm$ 0. | 0.449 $\pm$ 0.|
+|           | GSEF        | $\bf{0.884}$ $\pm$ 0.	| $\bf{0.880}$ $\pm$ 0. | $\underline{0.776}$ $\pm$ 0.	| $\underline{0.820}$ $\pm$ 0. | 0.537 $\pm$ 0. | $\underline{0.527}$ $\pm$ 0.|
+|           | GSE         | 0.779 $\pm$ 0.	| 0.810 $\pm$ 0. | 0.722 $\pm$ 0.	| 0.777 $\pm$ 0. | $\bf{0.596}$ $\pm$ 0. | $\bf{0.561}$ $\pm$ 0.|
+|           | ExplainSim  | $\underline{0.871}$ $\pm$ 0.	| $\underline{0.873}$ $\pm$ 0. | $\bf{0.806}$ $\pm$ 0. | $\bf{0.829}$ $\pm$ 0. | 0.427 $\pm$ 0. | 0.485 $\pm$ 0.|
+|           |             |      |    |        |    |         |    |
+|    Zorro-S   | GSEF-Concat | 0.881 $\pm$ 0. | 0.913 | 0.751 $\pm$ 0.	| 0.804 $\pm$ 0. | 0.602 $\pm$ 0. | 0.586 $\pm$ 0. |
+|           | GSEF-Mult   | 0.752 $\pm$ 0. | 0.784 | 0.710 $\pm$ 0.	| 0.727 $\pm$ 0. | 0.536 $\pm$ 0. | 0.524 $\pm$ 0. |
+|           | GSEF        | $\bf{0.921}$ $\pm$ 0.	| $\bf{0.918}$ $\pm$ 0. | $\bf{0.797}$ $\pm$ 0.	| $\bf{0.801}$ $\pm$ 0. | $\underline{0.595}$ $\pm$ 0. | $\underline{0.572}$ $\pm$ 0.|
+|           | GSE         | 0.891 $\pm$ 0.	| 0.916 $\pm$ 0. | 0.774 $\pm$ 0.	| 0.818 $\pm$ 0. | 0.560 $\pm$ 0. | 0.561 $\pm$ 0. |
+|           | ExplainSim  | $\underline{0.912}$ $\pm$ 0.	| $\underline{0.932}$ $\pm$ 0. | 0.732 $\pm$ 0.	| 0.804 $\pm$ 0. | 0.480 $\pm$ 0. | 0.489 $\pm$ 0. |
+|           |             |      |    |        |    |         |    |
+|    GLime   | GSEF-Concat | $\underline{0.634}$    $\pm$ 0.       | $\underline{0.685}$ $\pm$ 0.          | $\underline{0.627}$ $\pm$ 0.	| $\underline{0.664}$ $\pm$ 0. | $\underline{0.536}$ $\pm$ 0. | $\underline{0.538}$ $\pm$ 0.
+|           | GSEF-Mult   |0.517 $\pm$ 0. | 0.529 $\pm$ 0. | 0.563 $\pm$ 0.	| 0.570 $\pm$ 0. | 0.238 $\pm$ 0. | 0.362 $\pm$ 0. |
+|           | GSEF        | $\bf{0.769}$ $\pm$ 0.	| $\bf{0.800}$ $\pm$ 0. | $\bf{0.681}$ $\pm$ 0.	| $\bf{0.740}$ $\pm$ 0. | $\bf{0.548}$ $\pm$ 0. | $\bf{0.542}$ $\pm$ 0. |
+|           | GSE         | 0.559 $\pm$ 0.	| 0.588 $\pm$ 0. | 0.503 $\pm$ 0.	| 0.565 $\pm$ 0. | 0.262 $\pm$ 0. | 0.371 $\pm$ 0.|
+|           | ExplainSim  | 0.513 $\pm$ 0.	| 0.535 $\pm$ 0. | 0.522 $\pm$ 0.	| 0.515 $\pm$ 0. | 0.502 $\pm$ 0. | 0.498 $\pm$ 0.|
+|           |             |      |    |        |    |         |    |
+|    GNNExp   | GSEF-Concat | 0.600 $\pm$ 0. | 0.639  $\pm$ 0. | 0.649 $\pm$ 0.	| 0.677 $\pm$ 0. | 0.418 $\pm$ 0. | 0.459 $\pm$ 0.|
+|           | GSEF-Mult    | $\underline{0.703}$ $\pm$ 0. | $\underline{0.750}$ $\pm$ 0. | $\underline{0.661}$ $\pm$ 0.	| $\underline{0.720}$ $\pm$ 0. | 0.391 $\pm$ 0. | 0.451 $\pm$ 0.|
+|           | GSEF        | $\bf{0.790}$ $\pm$ 0.	| $\bf{0.808}$ $\pm$ 0. | $\bf{0.700}$ $\pm$ 0.	| $\bf{0.732}$ $\pm$ 0. | $\bf{0.605}$ $\pm$ 0. | $\bf{0.573}$ $\pm$ 0. |
+|           | GSE         |0.514 $\pm$ 0.	| 0.540 $\pm$ 0. | 0.461 $\pm$ 0.	| 0.494 $\pm$ 0. | 0.322 $\pm$ 0. | 0.406 $\pm$ 0. |
+|           | ExplainSim  |0.517 $\pm$ 0.	| 0.513 $\pm$ 0. | 0.498 $\pm$ 0.	| 0.499 $\pm$ 0. | $\underline{0.539}$ $\pm$ 0. | $\underline{0.523}$ $\pm$ 0. |
+
+
+## Parameters
+AutoEncoder
 
 ## Running Explanation Attacks
 
