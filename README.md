@@ -17,6 +17,7 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 <p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p> -->
 
 ## Results
+All experiments were run 10 times. We present the mean and the standard deviation below.
 
 | Exp       | Method      | Cora |    | CoraML |    | Bitcoin |    |
 |-----------|-------------|:----:|:--:|:------:|:--:|:-------:|:--:|
@@ -62,9 +63,11 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 |           | GSE         |0.514 $\pm$ 0.02	| 0.540 $\pm$ 0.04 | 0.461 $\pm$ 0.05	| 0.494 $\pm$ 0.03 | 0.322 $\pm$ 0.08 | 0.406 $\pm$ 0.06 |
 |           | ExplainSim  |0.517 $\pm$ 0.03	| 0.513 $\pm$ 0.03 | 0.498 $\pm$ 0.04	| 0.499 $\pm$ 0.04 | $\underline{0.539}$ $\pm$ 0.07 | $\underline{0.523}$ $\pm$ 0.06 |
 
+## How GSEF and it's variants works
 
-## Parameters
-AutoEncoder
+- 
+## Hyperparameters
+###AutoEncoder
 
 ## Running Explanation Attacks
 
