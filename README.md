@@ -16,6 +16,24 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 ## Attack taxonomy based on attacker’s knowledge
 <p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p> -->
 
+## Modules in GSEF attack and it's variants explained
+
+### Generator:
+- The generator takes the explanations and/or node features and outputs an adjacency matrix
+- First, it assigns weights to all possible edges of each node and is fully parameterized.
+- Then optimizes these weights (parameters) over the training epochs via the final loss function that combines both the classification task loss and the self-supervision task loss
+- The final adjacency matrix is the one that minimizes the final loss function
+
+### Self-supervision:
+- Some nodes might not be connected to a labelled nodes. In such case, they will retain their initially assigned weights. Hence, the self-supervision module helps in learning reasonable edge weights for all possible edges
+- The goal is to reconstruct clean features from noisy features 
+- It consists of a *GCN* denoising autoencoder that takes as input the generated adjacency and noisy features
+
+### Classifcation module:
+- Utilize the knowledge of the labels to further optimize the adjacency matrix
+- The classification module is a *GCN* model that takes as input the the node features and the newly optimized adjacency matrix via self-supervision
+
+
 ## Results
 All experiments were run 10 times. We present the mean and the standard deviation below.
 
@@ -31,13 +49,13 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 |           | GSEF-Mult   |0.692 $\pm$ 0.02 | 0.749 $\pm$ 0.01 | 0.683 $\pm$ 0.04 | 0.762 $\pm$ 0.04 | 0.266 $\pm$ 0.06 | 0.381 $\pm$ 0.06|
 |           | GSEF        |$\underline{0.947}$ $\pm$ 0.04 | $\underline{0.955}$ $\pm$ 0.03 | $\bf{0.902}$ $\pm$ 0.02 | $\underline{0.832}$ $\pm$ 0.03 | $\bf{0.700}$ $\pm$ 0.05 | $\bf{0.715}$ $\pm$ 0.05|
 |           | GSE         |0.870 $\pm$ 0.03 | 0.893 $\pm$ 0.02 | 0.689 $\pm$ 0.05 | 0.761 $\pm$ 0.04 | 0.254 $\pm$ 0.07 | 0.376 $\pm$ 0.06|
-|           | ExplainSim  | $\bf{0.983}$ $\pm$ 0.01 | $\bf{0.980}$ $\pm$ 0.01 | 0.900 $\pm$ 0.01 | $\bf{0.904}$ $\pm$ 0.01 | $\underline{0.694}$ $\pm$ 0.05 | $\underline{0.656}$ $\pm$ 0.03|
+|           | ExplainSim  | $\bf{0.983}$ $\pm$ 0.01 | $\bf{0.980}$ $\pm$ 0.01 | $\underline{0.900}$ $\pm$ 0.01 | $\bf{0.904}$ $\pm$ 0.01 | $\underline{0.694}$ $\pm$ 0.05 | $\underline{0.656}$ $\pm$ 0.03|
 |           |             |      |    |        |    |         |    |
 |    **Grad-I**   | GSEF-Concat | 0.700 $\pm$ 0.02  | 0.755 $\pm$ 0.02  | 0.703 $\pm$ 0.05 	| 0.753 $\pm$ 0.05  | 0.522 $\pm$ 0.08 	| 0.526 $\pm$ 0.06 |
 |           | GSEF-Mult   | 0.665 $\pm$ 0.04  | 0.702 $\pm$ 0.04  | 0.710 $\pm$ 0.03  | 0.743 $\pm$ 0.05  | 0.228 $\pm$ 0.07 	| 0.363 $\pm$ 0.07 |
-|           | GSEF        | $\underline{0.914}$ $\pm$ 0.03 	| $\underline{0.917}$ $\pm$ 0.02  | $\underline{0.802}$ $\pm$ 0.02 	| $\bf{0.842}$ $\pm$ 0.05  | $\bf{0.710}$ $\pm$ 0.04 	| $\bf{0.725}$ $\pm$ 0.05 |
+|           | GSEF        | $\underline{0.914}$ $\pm$ 0.03 	| $\underline{0.917}$ $\pm$ 0.02  | $\underline{0.802}$ $\pm$ 0.02 	| $\underline{0.842}$ $\pm$ 0.05  | $\bf{0.710}$ $\pm$ 0.04 	| $\bf{0.725}$ $\pm$ 0.05 |
 |           | GSE         | 0.872 $\pm$ 0.02 	| 0.900 $\pm$ 0.01  |0.725 $\pm$ 0.04 	| 0.790 $\pm$ 0.04  | 0.256 $\pm$ 0.06 	| 0.377 $\pm$ 0.06 |
-|           | ExplainSim  | $\bf{0.983}$  $\pm$ 0.01 	| $\bf{0.978}$  $\pm$ 0.01  | $\bf{0.908}$  $\pm$ 0.02 	| $\bf{0.911}$  $\pm$ 0.02  | 0.690 $\pm$ 0.05 	| 0.651 $\pm$ 0.07 |
+|           | ExplainSim  | $\bf{0.983}$  $\pm$ 0.01 	| $\bf{0.978}$  $\pm$ 0.01  | $\bf{0.908}$  $\pm$ 0.02 	| $\bf{0.911}$  $\pm$ 0.02  | $\underline{0.690}$ $\pm$ 0.05 	| $\underline{0.651}$ $\pm$ 0.07 |
 |           |             |      |    |        |    |         |    |
 |    **Zorro**   | GSEF-Concat | 0.823 $\pm$ 0.04	| 0.860 $\pm$ 0.05          | 0.735 $\pm$ 0.02	| 0.786 $\pm$ 0.01 | $\underline{0.575}$ $\pm$ 0.03 | 0.529 $\pm$ 0.05|
 |           | GSEF-Mult   | 0.723 $\pm$ 0.03	| 0.756 $\pm$ 0.03 | 0.681 $\pm$ 0.02	| 0.697 $\pm$ 0.04 | 0.399 $\pm$ 0.07 | 0.449 $\pm$ 0.05|
@@ -45,11 +63,11 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 |           | GSE         | 0.779 $\pm$ 0.04	| 0.810 $\pm$ 0.01 | 0.722 $\pm$ 0.02	| 0.777 $\pm$ 0.02 | $\bf{0.596}$ $\pm$ 0.03 | $\bf{0.561}$ $\pm$ 0.03|
 |           | ExplainSim  | $\underline{0.871}$ $\pm$ 0.02	| $\underline{0.873}$ $\pm$ 0.02 | $\bf{0.806}$ $\pm$ 0.02 | $\bf{0.829}$ $\pm$ 0.03 | 0.427 $\pm$ 0.06 | 0.485 $\pm$ 0.05|
 |           |             |      |    |        |    |         |    |
-|    **Zorro-S**   | GSEF-Concat | 0.881 $\pm$ 0.03 | 0.913 $\pm$ 0.04 | 0.751 $\pm$ 0.03	| 0.804 $\pm$ 0.03 | $\bf{0.602}$ $\pm$ 0.05 | $\bf{0.586}$ $\pm$ 0.04 |
+|    **Zorro-S**   | GSEF-Concat | 0.881 $\pm$ 0.03 | 0.913 $\pm$ 0.04 | $\underline{0.751}$ $\pm$ 0.03	| $\underline{0.804}$ $\pm$ 0.03 | $\bf{0.602}$ $\pm$ 0.05 | $\bf{0.586}$ $\pm$ 0.04 |
 |           | GSEF-Mult   | 0.752 $\pm$ 0.05 | 0.784 $\pm$ 0.05 | 0.710 $\pm$ 0.03	| 0.727 $\pm$ 0.02 | 0.536 $\pm$ 0.04 | 0.524 $\pm$ 0.04 |
-|           | GSEF        | $\bf{0.921}$ $\pm$ 0.02	| $\bf{0.918}$ $\pm$ 0.01 | $\bf{0.797}$ $\pm$ 0.02	| $\bf{0.801}$ $\pm$ 0.01 | $\underline{0.595}$ $\pm$ 0.05 | $\underline{0.572}$ $\pm$ 0.08|
-|           | GSE         | 0.891 $\pm$ 0.03	| 0.916 $\pm$ 0.02 | 0.774 $\pm$ 0.02	| 0.818 $\pm$ 0.02 | 0.560 $\pm$ 0.08 | 0.561 $\pm$ 0.07 |
-|           | ExplainSim  | $\underline{0.912}$ $\pm$ 0.03	| $\underline{0.932}$ $\pm$ 0.02 | 0.732 $\pm$ 0.02	| 0.804 $\pm$ 0.01 | 0.480 $\pm$ 0.05 | 0.489 $\pm$ 0.06 |
+|           | GSEF        | $\bf{0.921}$ $\pm$ 0.02	| $\underline{0.918}$ $\pm$ 0.01 | $\bf{0.797}$ $\pm$ 0.02	| 0.801 $\pm$ 0.01 | $\underline{0.595}$ $\pm$ 0.05 | $\underline{0.572}$ $\pm$ 0.08|
+|           | GSE         | 0.891 $\pm$ 0.03	| 0.916 $\pm$ 0.02 | 0.774 $\pm$ 0.02	| $\bf{0.818}$ $\pm$ 0.02 | 0.560 $\pm$ 0.08 | 0.561 $\pm$ 0.07 |
+|           | ExplainSim  | $\underline{0.912}$ $\pm$ 0.03	| $\bf{0.932}$ $\pm$ 0.02 | 0.732 $\pm$ 0.02	| 0.804 $\pm$ 0.01 | 0.480 $\pm$ 0.05 | 0.489 $\pm$ 0.06 |
 |           |             |      |    |        |    |         |    |
 |    **GLime**   | GSEF-Concat | $\underline{0.634}$    $\pm$ 0.03       | $\underline{0.685}$ $\pm$ 0.05          | $\underline{0.627}$ $\pm$ 0.05	| $\underline{0.664}$ $\pm$ 0.03 | $\underline{0.536}$ $\pm$ 0.08 | $\underline{0.538}$ $\pm$ 0.04
 |           | GSEF-Mult   |0.517 $\pm$ 0.02 | 0.529 $\pm$ 0.02 | 0.563 $\pm$ 0.04	| 0.570 $\pm$ 0.05 | 0.238 $\pm$ 0.08 | 0.362 $\pm$ 0.08 |
@@ -63,12 +81,31 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 |           | GSE         |0.514 $\pm$ 0.02	| 0.540 $\pm$ 0.04 | 0.461 $\pm$ 0.05	| 0.494 $\pm$ 0.03 | 0.322 $\pm$ 0.08 | 0.406 $\pm$ 0.06 |
 |           | ExplainSim  |0.517 $\pm$ 0.03	| 0.513 $\pm$ 0.03 | 0.498 $\pm$ 0.04	| 0.499 $\pm$ 0.04 | $\underline{0.539}$ $\pm$ 0.07 | $\underline{0.523}$ $\pm$ 0.06 |
 
-## How GSEF and it's variants works
 
-- 
 ## Hyperparameters
-###AutoEncoder
+### Self-supervision
+- num_layers - 2
+- learning rate - 0.01
+- epochs - 2000
+- hidden_size - 512
+- dropout - 0.5
+- noisy_mask_ratio - 20
 
+### Classification module
+- num_layers - 2
+- learning rate - 0.001
+- epochs - 200
+- hidden_size - 32
+- dropout - 0.5
+
+### Target model
+- num_layers - 2
+- learning rate - 0.01
+- epochs - 200
+- hidden_size - 32
+- dropout - 0.5
+- weight_decay - 5e-4
+ 
 ## Running Explanation Attacks
 
 ### Running GSEF-Concat
@@ -120,7 +157,7 @@ Download code from [their repository](https://github.com/xinleihe/link_stealing_
 python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method zorro-hard -ntrials 10 -attack_type explainsim -use_defense 5 -epsilon {eps}
 ```
 
-## Parameters
+## Code args
 Parameters for running the code are enclosed in {}. The take the following values:
 - dataset-name ==> ['cora', 'cora_ml', 'bitcoin']
 - explanation ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
