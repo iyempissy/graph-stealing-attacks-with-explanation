@@ -157,6 +157,16 @@ Download code from [their repository](https://github.com/xinleihe/link_stealing_
 python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method zorro-hard -ntrials 10 -attack_type explainsim -use_defense 5 -epsilon {eps}
 ```
 
+### Running Fidelity
+```bash
+python3 main.py -model fidelity -get_fidelity 1 -dataset {dataset-name} -explanation_method zorro-hard -ntrials 10 -use_defense 5 -epsilon {eps}
+```
+
+### Running Sparsity and Intersection
+```bash
+python3 main.py -model exp_intersection -get_intersection 1 -dataset {dataset-name} -explanation_method zorro-hard -ntrials 10 -use_defense 5 -epsilon {eps}
+```
+
 ## Code args
 Parameters for running the code are enclosed in {}. The take the following values:
 - dataset-name ==> ['cora', 'cora_ml', 'bitcoin']
