@@ -1,9 +1,9 @@
 # Private Graph Extraction via Feature Explanations
-### by anonymous authors
-This repository contains additional details and reproducibility of the stated results. 
-We will make the repository publicly available upon acceptance. 
+### by Iyiola E. Olatunji, Mandeep Rathee, Thorben Funke, and Megha Khosla
+This repository contains additional details and reproducibility of the stated results.
+*Accepted in PETS 2023*
 
-<!-- ## Motivation
+## Motivation
 <p align=center><img style="vertical-align:middle" width="500" height="290" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/motivation.png" /></p>
 
 ### Problem Definition: 
@@ -14,7 +14,7 @@ Given the explanation and/or some auxiliary information, can we reconstruct the 
 
 
 ## Attack taxonomy based on attacker’s knowledge
-<p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p> -->
+<p align=center><img style="vertical-align:middle" width="300" height="200" src="https://github.com/iyempissy/graph-stealing-attacks-with-explanation/blob/main/images/attacktaxonomy.png" /></p>
 
 ## Modules in GSEF attack and it's variants explained
 
@@ -169,6 +169,6 @@ python3 main.py -model exp_intersection -get_intersection 1 -dataset {dataset-na
 
 ## Code args
 Parameters for running the code are enclosed in {}. The take the following values:
-- dataset-name ==> ['cora', 'cora_ml', 'bitcoin']
+- dataset-name ==> ['cora', 'cora_ml', 'bitcoin', 'citeseer', 'credit', 'pubmed']
 - explanation ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
 - eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
