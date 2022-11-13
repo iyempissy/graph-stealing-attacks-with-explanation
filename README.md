@@ -106,6 +106,12 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 - dropout - 0.5
 - weight_decay - 5e-4
  
+ 
+## Generating Explanations 
+ ```bash
+python3 explanations.py -model {model-name} -dataset {dataset-name} -expainer {explainer-name} -save_exp 
+```
+ 
 ## Running Explanation Attacks
 
 ### Running GSEF-Concat
