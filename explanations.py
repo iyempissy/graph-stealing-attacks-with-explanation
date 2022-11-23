@@ -59,14 +59,20 @@ data.to(device)
 model_dict = {"GCN":GCNNet,"GAT":GATNet,"GIN":GINConvNet,"APPNP":APPNP2Net}
 explainer_dict ={"Grad":grad_node_explanation,"GradInput":gradinput_node_explanation,"GraphLime":GLIME,"GNNExplainer":GNNExplainer}
 
+
+## Defining the GNN model
 model = model_dict[args.model](dataset)
 model.to(device)
+
+### path to the saved model 
 save_dir = 'saved_models'
 model_directory = args.model
 filename = os.path.join(save_dir, args.model)
 saved_model = os.path.join(filename,args.dataset)
 saved_model_dir = saved_model+"_.pth.tar"
 
+
+### load the trained GNN model
 load_model(saved_model_dir,model)
 
 
@@ -108,6 +114,7 @@ num_nodes, num_features = data.x.size()
 
 
 
+### Defining the path to save explanations
 exp_save_dir = 'Saved_Explanations'
 model_directory = args.model
 explainer = args.explainer
