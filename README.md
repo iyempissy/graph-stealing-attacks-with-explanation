@@ -109,46 +109,46 @@ All experiments were run 10 times. We present the mean and the standard deviatio
  
 ## Generating Explanations 
  ```bash
-python3 explanations.py -model {model-name} -dataset {dataset-name} -expainer {explainer-name} -save_exp 
+python3 explanations.py -model gcn -dataset {dataset-name} -explainer {explainer} -save_exp 
 ```
  
 ## Running Explanation Attacks
 
 ### Running GSEF-Concat
 ```bash
-python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type gsef_concat 
+python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -attack_type gsef_concat 
 ```
 
 ### Running GSEF-Mult
 ```bash
-python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type gsef_mult
+python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -attack_type gsef_mult
 ```
 
 ### Running GSEF
 ```bash
-python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explanation} -use_exp_as_reconstruction_loss 1 -ntrials 10 -attack_type gsef
+python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explainer} -use_exp_as_reconstruction_loss 1 -ntrials 10 -attack_type gsef
 ```
 
 ### Running GSE
 ```bash
-python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type gse
+python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -attack_type gse
 ```
 
 ### Running ExplainSim
 ```bash
-python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type explainsim
+python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -attack_type explainsim
 ```
 
 ## Running Baselines:
 
 ### Running SLAPS
 ```bash
-python3 main.py -model end2end -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type slaps
+python3 main.py -model end2end -dataset {dataset-name} -ntrials 10 -attack_type slaps
 ```
 
 ### Running FeatureSim
 ```bash
-python3 main.py -model pairwise_sim -dataset {dataset-name} -explanation_method {explanation} -ntrials 10 -attack_type featuresim
+python3 main.py -model pairwise_sim -dataset {dataset-name} -ntrials 10 -attack_type featuresim
 ```
 
 ### Running GraphMI
@@ -176,5 +176,5 @@ python3 main.py -model exp_intersection -get_intersection 1 -dataset {dataset-na
 ## Code args
 Parameters for running the code are enclosed in {}. The take the following values:
 - dataset-name ==> ['cora', 'cora_ml', 'bitcoin', 'citeseer', 'credit', 'pubmed']
-- explanation ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
+- explainer ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
 - eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
