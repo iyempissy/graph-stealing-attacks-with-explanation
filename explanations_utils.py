@@ -536,37 +536,5 @@ def retrieve_accuracy(model, data, test_mask=None, value=False):
         return acc
     else:
         return 'Accuracy: {:.4f}'.format(acc)
-working_directory = Path("/home/rathee/privacy/").resolve()
 
-# #
-# data_set="Credit_mini"
-# dataset, data, results_path = load_dataset(data_set,working_directory=working_directory)
-# # # data.to('cuda')
-# # #
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# # #
-data_set = "CiteSeer"
-dataset, data, results_path = load_dataset(data_set, working_directory=working_directory)
-data.to(device)
-# # #
-model = GCNNet(dataset)
-model.to(device)
-
-# #
-# acc = train_model(model, data, epochs=200, lr=0.01, weight_decay=5e-4, clip=None, loss_function="nll_loss",
-#                  epoch_save_path=None, no_output=False)
-# test_acc =  retrieve_accuracy(model, data, test_mask=None, value=True)
-# print(test_acc)
-# # # #
-save_dir = 'saved_models'
-model_directory = 'GCN'
-epochs = 200
-filename = os.path.join(save_dir, model_directory)
-saved_model = os.path.join(filename,data_set)
-saved_model_dir =saved_model+"_.pth.tar"
-#
-# save_model(model,saved_model_dir)
-load_model(saved_model_dir,model)
-test_acc =  retrieve_accuracy(model, data, test_mask=None, value=True)
-print(test_acc)
 
