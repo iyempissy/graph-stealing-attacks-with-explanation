@@ -21,8 +21,8 @@ from torch_geometric.nn import APPNP
 from torch_geometric.nn import GINConv, global_add_pool
 from torch.nn import Sequential, Linear, ReLU
 import torch.nn as nn
-from data_loader import load_data
-from model import *
+from explanations_utils import load_dataset
+from explanations_utils import *
 from grad_explainer import *
 import collections
 from fidelity import *
