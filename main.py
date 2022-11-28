@@ -154,14 +154,9 @@ class Experiment:
     def train_test_normal(self, args):
         # For normal training and testing a GNN model
         features, nfeats, labels, nclasses, train_mask, val_mask, test_mask, original_adj, saved_model_path = load_data(args)
-        print("original", original_adj.shape)
         G = nx.from_numpy_matrix(original_adj)
         data = from_networkx(G)
-        print("data", data)
         edges = data.edge_index
-
-        print("edges", edges)
-        print(edges.shape)
 
         val_accuracies = []
         test_accuracies = []
@@ -626,8 +621,8 @@ class Experiment:
 
         print("args.ntrials", args.ntrials)
         print("avg_auroc", avg_auroc)
-        print("reconstructed auroc mean", np.mean(avg_auroc))
         print("avg_avg_prec", avg_avg_prec)
+        print("reconstructed auroc mean", np.mean(avg_auroc))
         print("reconstructed avg_prec mean", np.mean(avg_avg_prec))
 
         print("reconstructed auroc std", np.std(avg_auroc))
@@ -637,11 +632,11 @@ class Experiment:
 
     def print_results(self, validation_accu, test_accu):
         print(test_accu)
-        print("std of test accuracy", np.std(test_accu))
-        print("average of test accuracy", np.mean(test_accu))
+        print("average of attacker advantage", np.mean(test_accu))
+        print("std attacker advantage", np.std(test_accu))
         print(validation_accu)
-        print("std of val accuracy", np.std(validation_accu))
         print("average of val accuracy", np.mean(validation_accu))
+        print("std of val accuracy", np.std(validation_accu))
 
 
     def reconstruction_metric(self, ori_adj, inference_adj, idx, dataset="none", trial=000, save_testset=0, run_all_testset=0, num_test=0):
@@ -655,35 +650,15 @@ class Experiment:
             all_auc = []
             all_avg_prec = []
             for k in range(num_test):
-                print("each_test", k)
-                print("ori_adj b4", ori_adj[:10])  # [[0 0 0 ... 0 0 0]
-                print("inference_adj", inference_adj[:10])  # [[5.7996154e-02 1.7944765e-05 1.3481597e-05 ... ]
-                print("ori_adj.shape", ori_adj.shape)  # 2708x2708 --> It is converted to numpy and it is 0, 1 encoded!
-                print("inference_adj.shape",
-                      inference_adj.shape)  # 2708 x 2708 --> It is converted to numpy and it's probabilities
-                # print("idx", idx) # They are nodes that u wanna attack e.g [ 271 1310  220  968  618  966 ...] it is 10% of the total number of nodes
                 print("idx.shape", idx[k].shape)  # 270
-
-                # get the real and predicted edges for the idx of interest! Then compute their
+                # get the real and predicted edges for the idx of interest!
                 real_edge = ori_adj[idx[k], :][:, idx[k]].reshape(-1)
-                # print(type(real_edge)) #numpymatrix
-                # For some reason, the real_edge has an extra dimension. Flatten!
+                # Flatten!
                 real_edge = (np.asarray(real_edge)).flatten()
-                # print("real_edge after", real_edge) #[0. 0. 0. ...]
-                # print("real_edge.shapessssss", real_edge1.shape)
-                print("real_edge.shape", real_edge.shape)  # 72900
-                # print("real_edge", list(real_edge)) # 72900
-                # edge_0 = np.where(real_edge == 0)[0]
-                # edge_1 = np.where(real_edge == 1)[0]
-                # print("len(edge_0)", len(edge_0), "len(edge_1)", len(edge_1))
 
                 pred_edge = inference_adj[idx[k], :][:, idx[k]].reshape(
                     -1)
-                # print("pred_edge after", pred_edge) # [0.         0.63648593 0.5467699  ...]
-                print("pred_edge.shape", pred_edge.shape)  # 72900
-                # fpr, tpr, threshold = roc_curve(real_edge, pred_edge) #old AUROC on all
 
-                # This should go for each!
                 # load
                 index_delete = []
                 # index_delete_all = []
@@ -691,21 +666,9 @@ class Experiment:
                                          "./Dataset/testset/" + dataset + "/index_delete_" + dataset + "_trial_" + str(
                                              k) + "_.idx")
                 index_delete = np.array(index_delete)
-                # index_delete_all.append(index_delete)
 
-                print("int(len(real_edge)-2*np.sum(real_edge))", int(len(real_edge) - 2 * np.sum(real_edge)))  # 72652
-                # print("index_delete", index_delete) # [42444 19960 68639 ...
-                print("index_delete.shape", index_delete.shape)  # 72652 # still about 80% that u wanna delete!
                 real_edge = np.delete(real_edge, index_delete)
-                # print("real_edge real_edge", real_edge)
                 pred_edge = np.delete(pred_edge, index_delete)
-                # print("pred_edge pred_edge", pred_edge)
-                # print("real_edge", real_edge[:10]) #[0. 0. 1. 1.
-                # It is 72776 - 72652 = 124 x 2 = 248
-                print("real_edge.shape", real_edge.shape)  # 248 nodes / integers!
-                # print("pred_edge", pred_edge[:10]) #[0.74064773 0.4564297  0.906284   0.53555965
-                print("pred_edge.shape", pred_edge.shape)  # 248 nodes / integers!
-                # auroc = auc(fpr, tpr) #old AUROC on all
 
                 # New: AUROC on balanced
                 print("real_edge real_edge", list(real_edge))
@@ -722,38 +685,16 @@ class Experiment:
 
 
         else:
-            print("ori_adj b4", ori_adj[:10]) # [[0 0 0 ... 0 0 0]
-            print("inference_adj", inference_adj[:10]) #[[5.7996154e-02 1.7944765e-05 1.3481597e-05 ... ]
-            print("ori_adj.shape", ori_adj.shape)  # 2708x2708 --> It is converted to numpy and it is 0, 1 encoded!
-            print("inference_adj.shape",
-                  inference_adj.shape)  # 2708 x 2708 --> It is converted to numpy and it's probabilities
-            # print("idx", idx) # They are nodes that u wanna attack e.g [ 271 1310  220  968  618  966 ...] it is 10% of the total number of nodes
-            print("idx.shape", idx.shape)  # 270
-
-            # get the real and predicted edges for the idx of interest! Then compute their
+            # get the real and predicted edges for the idx of interest!
             real_edge = ori_adj[idx, :][:, idx].reshape(-1)
-            # print(type(real_edge)) #numpymatrix
-            # For some reason, the real_edge has an extra dimension. Flatten!
             real_edge = (np.asarray(real_edge)).flatten()
-            # print("real_edge after", real_edge) #[0. 0. 0. ...]
-            # print("real_edge.shapessssss", real_edge1.shape)
-            print("real_edge.shape", real_edge.shape) # 72900
-            # print("real_edge", list(real_edge)) # 72900
-            # edge_0 = np.where(real_edge == 0)[0]
-            # edge_1 = np.where(real_edge == 1)[0]
-            # print("len(edge_0)", len(edge_0), "len(edge_1)", len(edge_1))
 
             pred_edge = inference_adj[idx, :][:, idx].reshape(
                 -1)
-            # print("pred_edge after", pred_edge) # [0.         0.63648593 0.5467699  ...]
-            print("pred_edge.shape", pred_edge.shape) # 72900
-            # fpr, tpr, threshold = roc_curve(real_edge, pred_edge) #old AUROC on all
 
             if save_testset == 1: #save the test set for evaluation
                 # save test index
                 index = np.where(real_edge == 0)[0]
-                # print("index", index) #[    0     1     2 ... ]
-                print("index.shape", index.shape)  # (72776,). This is like 80%
                 index_delete = np.random.choice(index, size=int(len(real_edge) - 2 * np.sum(real_edge)), replace=False)
                 save_list(index_delete, "./Dataset/testset/" + dataset + "/index_delete_" + dataset + "_trial_" + str(trial) + "_.idx")
             else:
@@ -762,19 +703,8 @@ class Experiment:
                 index_delete = read_list(index_delete, "./Dataset/testset/" + dataset + "/index_delete_" + dataset + "_trial_" +str(trial)+"_.idx")
                 index_delete = np.array(index_delete)
 
-            print("int(len(real_edge)-2*np.sum(real_edge))", int(len(real_edge) - 2 * np.sum(real_edge)))  # 72652
-            # print("index_delete", index_delete) # [42444 19960 68639 ...
-            print("index_delete.shape", index_delete.shape)  # 72652 # still about 80% that u wanna delete!
             real_edge = np.delete(real_edge, index_delete)
-            # print("real_edge real_edge", real_edge)
             pred_edge = np.delete(pred_edge, index_delete)
-            # print("pred_edge pred_edge", pred_edge)
-            # print("real_edge", real_edge[:10]) #[0. 0. 1. 1.
-            # It is 72776 - 72652 = 124 x 2 = 248
-            print("real_edge.shape", real_edge.shape)  # 248 nodes / integers!
-            # print("pred_edge", pred_edge[:10]) #[0.74064773 0.4564297  0.906284   0.53555965
-            print("pred_edge.shape", pred_edge.shape)  # 248 nodes / integers!
-            # auroc = auc(fpr, tpr) #old AUROC on all
 
             # New: AUROC on balanced
             print("real_edge real_edge", list(real_edge))
