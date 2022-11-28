@@ -1,10 +1,8 @@
-# License removed for repository anonymization
 import math
 import torch
 import torch.nn.functional as F
 from scipy.special import erf
 import numpy as np
-import sys
 
 
 class Mechanism:
@@ -69,7 +67,7 @@ class MultiBit(Mechanism):
 		x_star = s * (2 * t - 1)
 		del p, t, s
 
-		# unbiase the result
+		# unbias the result
 		x_prime = d * (self.beta - self.alpha) / (2 * m)
 		x_prime = x_prime * (em + 1) * x_star / (em - 1)
 		x_prime = x_prime + (self.alpha + self.beta) / 2
@@ -327,7 +325,13 @@ def randomized_response(x, eps):
 	# p = q * math.exp(eps)
 
 	p = math.exp(eps) / (math.exp(eps) + 1)
-	q = 1 - p
+	print("p", p)
+	# q = 1 - p #original
+	original_q = 1 - p
+	print("origina_q", original_q)
+	s = 1.83 #cora
+	q = original_q#s/((p*s)+(1-p)*(1-s)) # sina
+	print("q", q)
 
 	print("p", p)
 	print("q", q)

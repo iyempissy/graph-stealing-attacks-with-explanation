@@ -1,5 +1,4 @@
-# License removed for repository anonymization
-import dgl.function as fn
+# import dgl.function as fn
 import torch
 import torch.nn as nn
 
@@ -29,10 +28,11 @@ class GCNConv_dgl(nn.Module):
         self.linear = nn.Linear(input_size, output_size)
 
     def forward(self, x, g):
-        with g.local_scope():
-            g.ndata['h'] = self.linear(x)
-            g.update_all(fn.u_mul_e('h', 'w', 'm'), fn.sum(msg='m', out='h'))
-            return g.ndata['h']
+        pass
+        # with g.local_scope():
+        #     g.ndata['h'] = self.linear(x)
+        #     g.update_all(fn.u_mul_e('h', 'w', 'm'), fn.sum(msg='m', out='h'))
+        #     return g.ndata['h']
 
 
 class Diag(nn.Module):

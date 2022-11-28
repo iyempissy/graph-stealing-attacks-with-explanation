@@ -1,6 +1,4 @@
-# License removed for repository anonymization
 import os
-
 import numpy as np
 import pandas as pd
 import scipy as sc
@@ -34,9 +32,6 @@ class GaussianFeatureGen(FeatureGen):
                 i: {"feat": feat[i]} for i in range(feat.shape[0])
             }
         nx.set_node_attributes(G, feat_dict)
-
-
-
 
 
 def read_bitcoinalpha(dataset, feature_generator=None):

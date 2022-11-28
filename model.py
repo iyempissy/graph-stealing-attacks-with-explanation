@@ -1,11 +1,8 @@
-# License removed for repository anonymization
 import math
-
 from graph_generator import *
 from layers import GCNConv_dense, GCNConv_dgl
 from torch_geometric.nn import GCNConv
 import torch.nn.functional as F
-
 
 class GCN_DAE(nn.Module):
     def __init__(self, nlayers, in_dim, hidden_dim, nclasses, dropout, dropout_adj, features, k, knn_metric, i_,
@@ -101,8 +98,6 @@ class GCN(nn.Module):
         return x
 
 
-
-
 class GCN_C_PyG(nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels, num_layers, dropout, dropout_adj, sparse):
         super(GCN_C_PyG, self).__init__()
@@ -139,9 +134,6 @@ class GCN_PyG(nn.Module):
         return F.log_softmax(x, dim=1)
 
 
-
-
-
 # using the ADJ directly!
 class NAIVEGCN(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, num_layers, dropout, dropout_adj, sparse):
@@ -171,10 +163,6 @@ class NAIVEGCN(nn.Module):
         return x
 
 
-
-
-
-
 class GCN_C(nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels, num_layers, dropout, dropout_adj, sparse):
         super(GCN_C, self).__init__()
@@ -202,7 +190,7 @@ class GCN_C(nn.Module):
             Adj = adj_t
             Adj.edata['w'] = F.dropout(Adj.edata['w'], p=self.dropout_adj_p, training=self.training)
         else:
-            Adj = self.dropout_adj(adj_t) #important to improve performance
+            Adj = self.dropout_adj(adj_t)
 
         for i, conv in enumerate(self.layers[:-1]):
             x = conv(x, Adj)

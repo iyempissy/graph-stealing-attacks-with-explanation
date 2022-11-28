@@ -1,4 +1,3 @@
-# License removed for repository anonymization
 import pickle as pkl
 import sys
 import warnings
@@ -80,8 +79,11 @@ def sample_mask(idx, l):
 
 
 # for zorro cora and coraml
-def load_soft_mask(path_prefix, node):
-    path = path_prefix + "_node_" + str(node) + ".npz"
+def load_soft_mask(path_prefix, node, data_name="other_datasets"):
+    if data_name == "citeseer" or data_name == "credit" or data_name == "pubmed":
+        path = path_prefix + "_r_1_node_" + str(node) + ".npz"
+    else:
+       path = path_prefix + "_node_" + str(node) + ".npz"
     save = np.load(path)
     node_mask = save["node_mask"]
     feature_mask = save["feature_mask"]
@@ -139,7 +141,7 @@ def load_minimal_nodes_and_features_sets_zorro(path_prefix, node, check_for_init
 
 def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False, exp_only_as_feature=False,
                           exp_type="grad", use_exp_with_loss=0, get_fidelity=0, use_defense=0, get_intersection=0,
-                          epsilon=0, num_exp_in_each_split=10, get_predicted_labels=0, path=None, released_model=None):
+                          epsilon=0, num_exp_in_each_split=10, get_predicted_labels=0, path=None, released_model=None, use_subgraph=0):
     # if use_exp=True and concat_feat_with_exp=True, then do concatenation.
     # if use_exp=True and concat_feat_with_exp=False, then it does element wise multiplication.
 
@@ -148,19 +150,19 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
     else:
         print("No explanation is used!")
 
+    data_name_cap = dataset_str.capitalize()
     names = ['x', 'y', 'tx', 'ty', 'allx', 'ally', 'graph']
     objects = []
     for i in range(len(names)):
-        with open("data_tf/ind.{}.{}".format(dataset_str, names[i]), 'rb') as f:
+        with open("./Dataset/data_tf/ind.{}.{}".format(dataset_str, names[i]), 'rb') as f:
             if sys.version_info > (3, 0):
                 objects.append(pkl.load(f, encoding='latin1'))
             else:
                 objects.append(pkl.load(f))
 
     x, y, tx, ty, allx, ally, graph = tuple(objects)
-    test_idx_reorder = parse_index_file("data_tf/ind.{}.test.index".format(dataset_str))
+    test_idx_reorder = parse_index_file("./Dataset/data_tf/ind.{}.test.index".format(dataset_str))
     test_idx_range = np.sort(test_idx_reorder)
-
     if dataset_str == 'citeseer':
         # Fix citeseer dataset (there are some isolated nodes in the graph)
         # Find isolated nodes, add them as zero-vecs into the right position
@@ -201,6 +203,10 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
     labels = (labels == 1).nonzero()[:, 1]
     nclasses = torch.max(labels).item() + 1
 
+    print("dataset", dataset_str)
+    print("features", features.shape)
+    print("nclasses", nclasses)
+
     explanations = None
     original_exp = None
     perturbed_exp = None
@@ -208,37 +214,37 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
     # use explanations
     if use_exp:
         if exp_type == "zorro-soft":
-            exp_folder = "Cora_Explanations/Zorro_soft_Cora/gcn_2_layers_explanation"
+            exp_folder = data_name_cap+"_Explanations/Zorro_soft_"+data_name_cap+"/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
         elif exp_type == "zorro-hard":
-            exp_folder = "Cora_Explanations/Zorro_hard_Cora/gcn_2_layers_explanation"
+            exp_folder = data_name_cap+"_Explanations/Zorro_hard_"+data_name_cap+"/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
         elif exp_type == "grad":
-            exp_folder = "Cora_Explanations/Grad_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/Grad_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
         elif exp_type == "grad-untrained":
-            exp_folder = "Cora_Explanations/Grad_untrained_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/Grad_untrained_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
         elif exp_type == "gnn-explainer":
-            exp_folder = "Cora_Explanations/GNNExplainer_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/GNNExplainer_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
         elif exp_type == "graphlime":
-            exp_folder = "Cora_Explanations/GraphLime_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/GraphLime_"+data_name_cap+"_0.1/feature_masks_node="
             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
-        elif exp_type == "graphlime01":  # graphlime with rho of 0.1
-            exp_folder = "Cora_Explanations/GraphLime_Cora_0.1/feature_masks_node="
-            print("xxxxxxxxxxxx This is GraphLime 0.1 xxxxxxxxxxxx")
+        # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
+        #     exp_folder = data_name_cap+"_Explanations/GraphLime_"+data_name_cap+"_0.1/feature_masks_node="
+        #     print("xxxxxxxxxxxx This is GraphLime 0.1 xxxxxxxxxxxx")
         elif exp_type == "gradinput-untrained":
-            exp_folder = "Cora_Explanations/GradInput_untrained_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/GradInput_untrained_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
         else:  # for gradinput
-            exp_folder = "Cora_Explanations/GradInput_Cora/feature_masks_node="
+            exp_folder = data_name_cap+"_Explanations/GradInput_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
         all_feat_exp = []
         for i in range(0, len(features)):
             if exp_type == "zorro-soft":
-                _, feat_exp_i, _ = load_soft_mask(exp_folder, i)
+                _, feat_exp_i, _ = load_soft_mask(exp_folder, i, dataset_str)
                 # # remove extra dimension
                 feat_exp_i = (np.asarray(feat_exp_i)).flatten()
             elif exp_type == "zorro-hard":
@@ -248,7 +254,18 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
                 feat_exp_i = (np.asarray(feat_exp_i)).flatten()
             else:
                 feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
-            all_feat_exp.append(feat_exp_i)
+
+
+            # if dataset_str == "citeseer" or dataset_str == "pubmed" or dataset_str == "cora":
+            if dataset_str == "cora":
+                all_feat_exp.append(feat_exp_i)
+            elif dataset_str == "citeseer" or dataset_str == "pubmed":
+                if exp_type == "gnn-explainer":
+                    all_feat_exp.append(feat_exp_i.cpu())
+                else:
+                    all_feat_exp.append(feat_exp_i)
+            else:
+                all_feat_exp.append(feat_exp_i.cpu())
 
         # convert list of arrays to single array!
         all_feat_exp = np.stack(all_feat_exp, axis=0)
@@ -258,8 +275,13 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
         # print(all_feat_exp.shape) #(2708, 1433)
         # concert to float tensor
         exp_features = torch.FloatTensor(all_feat_exp)
+        # remove extra dimension
+        if dataset_str == "citeseer" or dataset_str == "pubmed":
+            exp_features = exp_features.squeeze(1)
 
         # plot_explanations(exp_features, exp_type, dataset_str, labels)
+
+
 
         # Defense. Change the explanation vector here!
         if use_defense != 0:
@@ -316,8 +338,6 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
     if get_predicted_labels == 1:
         labels = get_pretrained_labels(path, released_model, data.x, data.edge_index, labels)
 
-    # print("original_adj", original_adj)
-    # print(original_adj.shape) #2708 x2708
     if use_exp_with_loss == 1:
         return explanations, features, nfeats, labels, nclasses, train_mask, val_mask, test_mask, original_adj, path
 
