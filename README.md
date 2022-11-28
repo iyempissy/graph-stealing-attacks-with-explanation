@@ -181,3 +181,7 @@ Parameters for running the code are enclosed in {}. The take the following value
 - dataset-name ==> ['cora', 'cora_ml', 'bitcoin', 'citeseer', 'credit', 'pubmed']
 - explainer ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
 - eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
+
+### License
+Copyright © 2022, Olatunji Iyiola Emmanuel.
+Released under the [MIT license](LICENSE).
