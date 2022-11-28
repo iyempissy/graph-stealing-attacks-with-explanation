@@ -1,5 +1,3 @@
-# License removed for repository anonymization
-
 import numpy as np
 import scipy.sparse as sp
 import torch
@@ -21,18 +19,10 @@ def apply_non_linearity(tensor, non_linearity, i):
 
 
 def get_random_mask(features, r, nr):
-    # # ratio = 20 ratio of ones to select for each mask
-    # # nr = 5 (ratio of 0 to 1)
     nones = torch.sum(features > 0.0).float() #number of ones
-    # print("nones", nones) #49216 of the features are greater than 0 out of 3831348{==0}. There is no feature less than 0!
-    # print("features", features.shape) #2708 x 1433
     nzeros = features.shape[0] * features.shape[1] - nones #number of zeros
-    # print("nzeros", nzeros) #3831348
     pzeros = nones / nzeros / r * nr #probability of zeros
-    # print("pzeros", pzeros) #0.0032
     probs = torch.zeros(features.shape).cuda()
-    # print("probs", probs)
-    # print("probs shape", probs.shape)
     probs[features == 0.0] = pzeros #probability of zero
     probs[features > 0.0] = 1 / r #probability of ones #0.05. It is higher to select more 1 than more 0!
     mask = torch.bernoulli(probs)
@@ -63,7 +53,6 @@ def nearest_neighbors_sparse(X, k, metric):
     [s_, d_, val] = sp.find(adj)
     s = np.concatenate((s_, loop))
     d = np.concatenate((d_, loop))
-
     return s, d
 
 
