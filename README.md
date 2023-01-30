@@ -109,7 +109,19 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 - dropout - 0.5
 - weight_decay - 5e-4
  
- 
+## Server config
+- OS and version: *Debian 10.3*
+- Python version: *Python 3.8*
+- Anaconda version: *2021.05*
+- Cuda: *Cuda 10.1*
+
+## Code args
+Parameters for running the code are enclosed in {}. The take the following values:
+- dataset-name ==> ['cora', 'cora_ml', 'bitcoin', 'citeseer', 'credit', 'pubmed']
+- explainer ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
+- eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
+
+
 ## Generating Explanations 
  ```bash
 python3 explanations.py -model gcn -dataset {dataset-name} -explainer {explainer} -save_exp 
@@ -175,12 +187,6 @@ python3 main.py -model fidelity -get_fidelity 1 -dataset {dataset-name} -explana
 ```bash
 python3 main.py -model exp_intersection -get_intersection 1 -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -use_defense 5 -epsilon {eps}
 ```
-
-## Code args
-Parameters for running the code are enclosed in {}. The take the following values:
-- dataset-name ==> ['cora', 'cora_ml', 'bitcoin', 'citeseer', 'credit', 'pubmed']
-- explainer ==> ['grad', 'gradinput', 'zorro-soft', 'zorro-hard', 'graphlime', 'gnn-explainer']
-- eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
 
 ### License
 Copyright © 2022, Olatunji Iyiola Emmanuel.
