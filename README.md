@@ -124,7 +124,7 @@ Parameters for running the code are enclosed in {}. The take the following value
 
 ## Generating Explanations 
  ```bash
-python3 explanations.py -model gcn -dataset {dataset-name} -explainer {explainer} -save_exp 
+python3 explanations.py --model gcn --dataset {dataset-name} --explainer {explainer} --save_exp 
 ```
  
 ## Running Explanation Attacks
