@@ -28,8 +28,7 @@ import collections
 from fidelity import *
 from gnn_explainer import *
 from zorro import *
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-#device = torch.device('cpu')
+
 import argparse
 from scipy.stats import entropy
 
@@ -52,6 +51,11 @@ args = arg_parse()
 
 working_directory = Path("...").resolve()
 
+if args.explainer=="Grad":
+    device = torch.device('cpu')
+else:
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
 data_set = args.dataset
 dataset, data, results_path = load_dataset(data_set, working_directory=working_directory)
 data.to(device)
