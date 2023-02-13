@@ -134,7 +134,8 @@ See [Generating Explanations](#generating-explanations) section
 
 ### Attack Module
 - **Step 3:** Setup attack environment  
-Install libraries in *attack_requirements.txt*
+Install libraries in *attack_requirements.txt*  
+Refer to [https://pytorch.org/get-started/previous-versions/#linux-and-windows-20](https://pytorch.org/get-started/previous-versions/#linux-and-windows-20) on installing the PyTorch versions.
 
 - **Step 4:** Run attack  
 See [Running Explanation Attacks](#running-explanation-attacks) section
