@@ -1,7 +1,7 @@
 set -e
 
 
-conda env create --file privacy_environment.yml --force
+conda env create --file explanation_environment.yml --force
 
 
 conda activate privacy
