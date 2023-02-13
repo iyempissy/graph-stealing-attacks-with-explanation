@@ -111,7 +111,7 @@ All experiments were run 10 times. We present the mean and the standard deviatio
  
 
 ## Getting started
-To simulate a realistic setting as described in the paper, we seperate the explanation generation environment and the attack environment where the explanations and attacks are executed by different entities (although installing graphlime ```pip install graphlime``` on the attack environment should be sufficient or alternatively, running all experiments on the explanation environment).  
+To simulate a realistic setting (and as described in the paper), we seperate the explanation generation environment and the attack environment where the explanations and attacks are executed by different entities (although installing graphlime ```pip install graphlime``` on the attack environment should be sufficient or alternatively, running all experiments on the explanation environment).  
 
 ### Server config
 - OS and version: *Debian 10.3*
