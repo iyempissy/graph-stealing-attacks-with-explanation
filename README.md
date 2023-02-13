@@ -134,7 +134,7 @@ See [Generating Explanations](#generating-explanations) section
 
 ### Attack Module
 - **Step 3:** Setup attack environment  
-Install libraries in *attack_enviroment.txt*
+Install libraries in *attack_requirements.txt*
 
 - **Step 4:** Run attack  
 See [Running Explanation Attacks](#running-explanation-attacks) section
