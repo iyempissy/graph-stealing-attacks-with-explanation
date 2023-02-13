@@ -109,11 +109,49 @@ All experiments were run 10 times. We present the mean and the standard deviatio
 - dropout - 0.5
 - weight_decay - 5e-4
  
-## Server config
+
+## Getting started
+To simulate a realistic setting as described in the paper, we seperate the explanation generation environment and the attack environment where the explanations and attacks are executed by different entities (although installing graphlime ```pip install graphlime``` on the attack environment should be sufficient or alternatively, running all experiments on the explanation environment).  
+
+### Server config
 - OS and version: *Debian 10.3*
 - Python version: *Python 3.8*
 - Anaconda version: *2021.05*
-- Cuda: *Cuda 10.1*
+- Cuda: *Cuda 11.1* (explanation environment), *Cuda 10.1* (attack environment)
+
+
+### Explanation Generation Module
+**Note:** All explanations used for the experiments are in their corresponding folders to *avoid regenerating explanations*. They only need to be unzipped if necessary. Hence, step 1 and 2 can be skipped.
+
+- **Step 1:** Setup explanation environement
+```bash 
+./privacy_environment.sh
+```
+
+
+- **Step 2:** Generate expalanations and save the model  
+See [Generating Explanations](#generating-explanations) section
+
+### Attack Module
+- **Step 3:** Setup attack environment  
+Install libraries in *attack_enviroment.txt*
+
+- **Step 4:** Run attack  
+See [Running Explanation Attacks](#running-explanation-attacks) section
+
+### Sample output:
+```bash
+reconstructed auroc mean 0.9239545119093648
+reconstructed avg_prec mean 0.9385418527248227
+
+reconstructed auroc std 0.03037829443212373
+reconstructed avg_prec std 0.023833043366627218
+
+average attacker advantage 0.8359649121761322
+std attacker advantage 0.023077240761854497
+
+total time 501.8652458667755127
+```
 
 ## Code args
 Parameters for running the code are enclosed in {}. The take the following values:
@@ -122,11 +160,12 @@ Parameters for running the code are enclosed in {}. The take the following value
 - eps ==> [0.0001, 0.001, 0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1]
 
 
-## Generating Explanations 
- ```bash
+## Generating Explanations
+```bash
 python3 explanations.py --model gcn --dataset {dataset-name} --explainer {explainer} --save_exp 
 ```
- 
+
+
 ## Running Explanation Attacks
 
 ### Running GSEF-Concat
