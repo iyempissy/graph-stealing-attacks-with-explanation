@@ -121,7 +121,7 @@ To simulate a realistic setting (and as described in the paper), we seperate the
 
 
 ### Explanation Generation Module
-**Note:** All explanations used for the experiments are in their corresponding folders to *avoid regenerating explanations*. They only need to be unzipped if necessary. Hence, step 1 and 2 can be skipped.
+**Note:** All explanations used for the experiments are in the [Explanations](https://github.com/iyempissy/graph-stealing-attacks-with-explanation/tree/main/Explanations) folders to *avoid regenerating explanations*. They only need to be unzipped if necessary. Hence, step 1 and 2 can be skipped.
 
 - **Step 1:** Setup explanation environement
 ```bash 
