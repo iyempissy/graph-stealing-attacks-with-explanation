@@ -125,7 +125,7 @@ To simulate a realistic setting as described in the paper, we seperate the expla
 
 - **Step 1:** Setup explanation environement
 ```bash 
-./privacy_environment.sh
+./explanation_environment.sh
 ```
 
 
