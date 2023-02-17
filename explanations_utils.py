@@ -18,7 +18,6 @@ SYN1_PATH = "data/syn1.npz"
 SYN2_PATH = "data/syn2.npz"
 from read_chameleon import *
 from read_credit import read_credit_dataset
-from read_credit_mini import read_credit_dataset_mini
 
 def load_dataset(data_set, working_directory=None):
     if working_directory is None:
