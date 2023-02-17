@@ -16,7 +16,6 @@ from read_bitcoin import *
 import networkx as nx
 SYN1_PATH = "data/syn1.npz"
 SYN2_PATH = "data/syn2.npz"
-from read_chameleon import *
 from read_credit import read_credit_dataset
 
 def load_dataset(data_set, working_directory=None):
@@ -535,5 +534,9 @@ def retrieve_accuracy(model, data, test_mask=None, value=False):
         return acc
     else:
         return 'Accuracy: {:.4f}'.format(acc)
+    
+    
+    
+    
 
 
