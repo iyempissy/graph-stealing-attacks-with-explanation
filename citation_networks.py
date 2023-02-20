@@ -214,31 +214,31 @@ def load_citation_network(dataset_str, use_exp=False, concat_feat_with_exp=False
     # use explanations
     if use_exp:
         if exp_type == "zorro-soft":
-            exp_folder = data_name_cap+"_Explanations/Zorro_soft_"+data_name_cap+"/gcn_2_layers_explanation"
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/Zorro_soft_"+data_name_cap+"/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
         elif exp_type == "zorro-hard":
-            exp_folder = data_name_cap+"_Explanations/Zorro_hard_"+data_name_cap+"/gcn_2_layers_explanation"
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/Zorro_hard_"+data_name_cap+"/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
         elif exp_type == "grad":
-            exp_folder = data_name_cap+"_Explanations/Grad_"+data_name_cap+"/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/Grad_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
         elif exp_type == "grad-untrained":
-            exp_folder = data_name_cap+"_Explanations/Grad_untrained_"+data_name_cap+"/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/Grad_untrained_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
         elif exp_type == "gnn-explainer":
-            exp_folder = data_name_cap+"_Explanations/GNNExplainer_"+data_name_cap+"/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/GNNExplainer_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
         elif exp_type == "graphlime":
-            exp_folder = data_name_cap+"_Explanations/GraphLime_"+data_name_cap+"_0.1/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/GraphLime_"+data_name_cap+"_0.1/feature_masks_node="
             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
         # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
         #     exp_folder = data_name_cap+"_Explanations/GraphLime_"+data_name_cap+"_0.1/feature_masks_node="
         #     print("xxxxxxxxxxxx This is GraphLime 0.1 xxxxxxxxxxxx")
         elif exp_type == "gradinput-untrained":
-            exp_folder = data_name_cap+"_Explanations/GradInput_untrained_"+data_name_cap+"/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/GradInput_untrained_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
         else:  # for gradinput
-            exp_folder = data_name_cap+"_Explanations/GradInput_"+data_name_cap+"/feature_masks_node="
+            exp_folder = "Explanations/"+data_name_cap+"_Explanations/GradInput_"+data_name_cap+"/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
         all_feat_exp = []

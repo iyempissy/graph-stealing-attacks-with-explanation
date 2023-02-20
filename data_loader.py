@@ -226,31 +226,31 @@ def load_cora_ml(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
     # use explanations
     if use_exp:
         if exp_type == "zorro-soft":
-            exp_folder = "Cora_ml_Explanations/Zorro_soft_Cora_ml/gcn_2_layers_explanation"
+            exp_folder = "Explanations/Cora_ml_Explanations/Zorro_soft_Cora_ml/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
         elif exp_type == "zorro-hard":
-            exp_folder = "Cora_ml_Explanations/Zorro_hard_Cora_ml/gcn_2_layers_explanation_t_3_r_1"
+            exp_folder = "Explanations/Cora_ml_Explanations/Zorro_hard_Cora_ml/gcn_2_layers_explanation_t_3_r_1"
             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
         elif exp_type == "grad":
-            exp_folder = "Cora_ml_Explanations/Grad_Cora_ml/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/Grad_Cora_ml/feature_masks_node="
             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
         elif exp_type == "grad-untrained":
-            exp_folder = "Cora_ml_Explanations/Grad_untrained_Cora_ml/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/Grad_untrained_Cora_ml/feature_masks_node="
             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
         elif exp_type == "gnn-explainer":
-            exp_folder = "Cora_ml_Explanations/GNNExplainer_Cora_ml/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/GNNExplainer_Cora_ml/feature_masks_node="
             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
         elif exp_type == "graphlime":
-            exp_folder = "Cora_ml_Explanations/GraphLime_Cora_ml_0.1/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/GraphLime_Cora_ml_0.1/feature_masks_node="
             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
         # elif exp_type == "graphlime01": #graphlime with rho of 0.1
         #     exp_folder = "Cora_ml_Explanations/GraphLime_Cora_ml_0.1/feature_masks_node="
         #     print("xxxxxxxxxxxx This is GraphLime 0.1xxxxxxxxxxxx")
         elif exp_type == "gradinput-untrained":
-            exp_folder = "Cora_ml_Explanations/GradInput_untrained_Cora_ml/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/GradInput_untrained_Cora_ml/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
         else: # for gradinput
-            exp_folder = "Cora_ml_Explanations/GradInput_Cora_ml/feature_masks_node="
+            exp_folder = "Explanations/Cora_ml_Explanations/GradInput_Cora_ml/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
         all_feat_exp = []
@@ -400,31 +400,31 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
     # use explanations
     if use_exp:
         if exp_type == "zorro-soft":
-            exp_folder = "Bitcoin_Explanations/Zorro_soft_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/Zorro_soft_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
         elif exp_type == "zorro-hard":
-            exp_folder = "Bitcoin_Explanations/Zorro_hard_Bitcoin/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
+            exp_folder = "Explanations/Bitcoin_Explanations/Zorro_hard_Bitcoin/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
         elif exp_type == "grad":
-            exp_folder = "Bitcoin_Explanations/Grad_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/Grad_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
         elif exp_type == "grad-untrained":
-            exp_folder = "Bitcoin_Explanations/Grad_untrained_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/Grad_untrained_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
         elif exp_type == "gnn-explainer":
-            exp_folder = "Bitcoin_Explanations/GNNExplainer_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/GNNExplainer_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
         elif exp_type == "graphlime":
-            exp_folder = "Bitcoin_Explanations/GraphLime_Bitcoin_0.1/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/GraphLime_Bitcoin_0.1/feature_masks_node="
             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
         # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
         #     exp_folder = "Bitcoin_Explanations/GraphLime_Bitcoin_0.1/feature_masks_node="
         #     print("xxxxxxxxxxxx This is GraphLime 0.1xxxxxxxxxxxx")
         elif exp_type == "gradinput-untrained":
-            exp_folder = "Bitcoin_Explanations/GradInput_untrained_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/GradInput_untrained_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
         else:  # for gradinput
-            exp_folder = "Bitcoin_Explanations/GradInput_Bitcoin/feature_masks_node="
+            exp_folder = "Explanations/Bitcoin_Explanations/GradInput_Bitcoin/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
         all_feat_exp = []
@@ -554,14 +554,14 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #                  num_exp_in_each_split=10, get_predicted_labels=0, path = None, released_model = None):
 #     data_name = "chameleon"
 #     data = read_chameleon_dataset(dataset)
-
-
-
+#
+#
+#
 #     features = data.x
 #     explanations = None
 #     perturbed_exp = None
 #     original_exp = None
-
+#
 #     # use explanations
 #     if use_exp:
 #         if exp_type == "zorro-soft":
@@ -591,7 +591,7 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #         else:  # for gradinput
 #             exp_folder = "Chameleon_Explanations/GradInput_Chameleon/feature_masks_node="
 #             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
-
+#
 #         all_feat_exp = []
 #         for i in range(0, len(features)):
 #             if exp_type == "zorro-soft":
@@ -619,10 +619,10 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #                 else:
 #                     feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
 #                 feat_exp_i = feat_exp_i.cpu()
-
+#
 #             all_feat_exp.append(feat_exp_i)
 #         # print("all_feat_exp", all_feat_exp)
-
+#
 #         # convert list of arrays to single array!
 #         # if exp_type == "zorro-hard":
 #         #     all_feat_exp = np.stack(all_feat_exp, axis=0)
@@ -631,17 +631,17 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #         all_feat_exp = np.stack(all_feat_exp, axis=0)
 #         # if exp_type == "gnn-explainer" or exp_type == "grad":  # remove extra dimension
 #         all_feat_exp = np.squeeze(all_feat_exp) #seems like all of the explanations have extra dim
-
+#
 #         # print("features", features) #floating number
 #         print("features.shape", features.shape) #(3783, 8)
-
+#
 #         print(all_feat_exp.shape) #(3783, 8)
-
+#
 #         # concert to float tensor
 #         exp_features = torch.FloatTensor(all_feat_exp)
-
+#
 #         # plot_explanations(exp_features, exp_type, data_name, data.y)
-
+#
 #         # Defense. Change the explanation vector here!
 #         if use_defense != 0:
 #             original_exp = exp_features  # make a copy of this
@@ -649,8 +649,8 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #             perturbed_exp = exp_features
 #         # elif use_defense == 2: #multi piecewise only
 #         #     exp_features = split_explanation(exp_features, 0, defense_type=use_defense)
-
-
+#
+#
 #         if use_exp_with_loss == 1:
 #             features = features
 #             explanations = exp_features
@@ -676,26 +676,26 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 #             # print(final_feature)
 #             # print(final_feature.shape)
 #             features = final_feature
-
+#
 #     G = convert.to_networkx(data, to_undirected=True)
 #     # print(nx.info(G))
 #     # print("num classes". max(data.y.numpy()) + 1)
 #     original_adj = nx.adjacency_matrix(G).todense()
-
+#
 #     # Assumption that the attacker can retrive labels from the released model.
 #     # We used the default features for extracting the labels
 #     if get_predicted_labels == 1:
 #         data.y = get_pretrained_labels(path, released_model, data.x, data.edge_index, data.y)
-
+#
 #     # return features, nfeats, labels, nclasses, train_mask, val_mask, test_mask, original_adj
 #     if use_exp_with_loss == 1:
 #         return explanations, features, features.shape[1], data.y, max(
 #             data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, original_adj, path
-
+#
 #     elif get_intersection == 1:
 #         # Note that to run this, use_defense has to be set
 #         return original_exp, perturbed_exp
-
+#
 #     elif get_fidelity == 1: #get_fidelity
 #         return explanations, features, features.shape[1], data.y, max(
 #             data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, data.edge_index, path
@@ -734,31 +734,31 @@ def load_credit(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as_
     if use_exp:
         if exp_type == "zorro-soft":
             # exp_folder = "Credit_Explanations/Zorro_soft_Credit/feature_masks_node"
-            exp_folder = "Credit_Explanations/Zorro_soft_Credit/gcn_2_layers_explanation"
+            exp_folder = "Explanations/Credit_Explanations/Zorro_soft_Credit/gcn_2_layers_explanation"
             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
         elif exp_type == "zorro-hard":
-            exp_folder = "Credit_Explanations/Zorro_hard_Credit/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
+            exp_folder = "Explanations/Credit_Explanations/Zorro_hard_Credit/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
         elif exp_type == "grad":
-            exp_folder = "Credit_Explanations/Grad_Credit/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/Grad_Credit/feature_masks_node="
             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
         elif exp_type == "grad-untrained":
-            exp_folder = "Credit_Explanations/Grad_untrained_Credit/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/Grad_untrained_Credit/feature_masks_node="
             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
         elif exp_type == "gnn-explainer":
-            exp_folder = "Credit_Explanations/GNNExplainer_Credit/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/GNNExplainer_Credit/feature_masks_node="
             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
         elif exp_type == "graphlime":
-            exp_folder = "Credit_Explanations/GraphLime_Credit_0.1/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/GraphLime_Credit_0.1/feature_masks_node="
             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
         # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
         #     exp_folder = "Credit_Explanations/GraphLime_Credit_0.1/feature_masks_node="
         #     print("xxxxxxxxxxxx This is GraphLime 0.1xxxxxxxxxxxx")
         elif exp_type == "gradinput-untrained":
-            exp_folder = "Credit_Explanations/GradInput_untrained_Credit/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/GradInput_untrained_Credit/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
         else:  # for gradinput
-            exp_folder = "Credit_Explanations/GradInput_Credit/feature_masks_node="
+            exp_folder = "Explanations/Credit_Explanations/GradInput_Credit/feature_masks_node="
             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
         all_feat_exp = []
@@ -960,23 +960,23 @@ def load_data(args):
                             path = "./saved_models/GCN/Creditgcn_2_layers.pt", released_model = released_model)
         # "./saved_models/GCN/Credit_.pth.tar"
 
-#     elif dataset_str == "chameleon":
-#         nfeats = 128
-#         nclasses = 5
-
-#         released_model = GCN_PyG(in_channels=nfeats, hidden_channels=args.hidden, out_channels=nclasses,
-#                                    num_layers=args.nlayers, dropout=args.dropout2, dropout_adj=args.dropout_adj2,
-#                                    sparse=args.sparse)
-
-
-
-#         return load_chameleon("./Dataset/Chameleon/", use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
-#                             exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method,
-#                             use_exp_with_loss = args.use_exp_as_reconstruction_loss, get_fidelity = args.get_fidelity,
-#                             use_defense = args.use_defense, get_intersection=args.get_intersection,
-#                             epsilon=args.epsilon, num_exp_in_each_split=args.num_exp_in_each_split,
-#                             get_predicted_labels=args.get_predicted_labels,
-#                             path = "./saved_models/GCN/Chameleon_.pth.tar", released_model = released_model)
+    # elif dataset_str == "chameleon":
+    #     nfeats = 128
+    #     nclasses = 5
+    #
+    #     released_model = GCN_PyG(in_channels=nfeats, hidden_channels=args.hidden, out_channels=nclasses,
+    #                                num_layers=args.nlayers, dropout=args.dropout2, dropout_adj=args.dropout_adj2,
+    #                                sparse=args.sparse)
+    #
+    #
+    #
+    #     return load_chameleon("./Dataset/Chameleon/", use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
+    #                         exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method,
+    #                         use_exp_with_loss = args.use_exp_as_reconstruction_loss, get_fidelity = args.get_fidelity,
+    #                         use_defense = args.use_defense, get_intersection=args.get_intersection,
+    #                         epsilon=args.epsilon, num_exp_in_each_split=args.num_exp_in_each_split,
+    #                         get_predicted_labels=args.get_predicted_labels,
+    #                         path = "./saved_models/GCN/Chameleon_.pth.tar", released_model = released_model)
 
     elif dataset_str == "cora_ml":
         nfeats = 300
