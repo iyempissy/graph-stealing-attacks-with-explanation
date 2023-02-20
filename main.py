@@ -481,7 +481,7 @@ class Experiment:
                     optimizer_exp.zero_grad()
 
 
-                if args.dataset == "cora_ml" or args.dataset == "bitcoin" or args.dataset=="chameleon" or args.dataset=="credit" or args.dataset=="pubmed":
+                if args.dataset == "cora_ml" or args.dataset == "bitcoin" or args.dataset=="credit" or args.dataset=="pubmed":
                     mask = get_random_mask_ogb(features, args.ratio).to(device_gnn_dae) # They all have the value of the 1/ratio
                     ogb = True #cos the feature values are floating point (may contain negatives) and not binary!
                 else:
@@ -732,7 +732,7 @@ if __name__ == '__main__':
     parser.add_argument('-dropout_adj1', type=float, default=0.25, help='Dropout rate (1 - keep probability).')
     parser.add_argument('-dropout_adj2', type=float, default=0.25, help='Dropout rate (1 - keep probability).')
     parser.add_argument('-dataset', type=str, default='cora', help='See choices',
-                        choices=['cora', 'cora_ml', 'bitcoin', 'chameleon', 'credit', 'citeseer', 'pubmed'])
+                        choices=['cora', 'cora_ml', 'bitcoin', 'credit', 'citeseer', 'pubmed'])
     parser.add_argument('-nlayers', type=int, default=2, help='#layers')
     parser.add_argument('-nlayers_adj', type=int, default=2, help='#layers')
     parser.add_argument('-patience', type=int, default=10, help='Patience for early stopping')
