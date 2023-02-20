@@ -17,7 +17,7 @@ from torch_geometric.data import Data
 from read_bitcoin import *
 from model import GCN_PyG
 from defenses import split_explanation
-from read_chameleon import *
+# from read_chameleon import *
 from read_credit import *
 
 
@@ -549,160 +549,160 @@ def load_bitcoin(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as
 
 
 
-def load_chameleon(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as_feature=False, exp_type="grad",
-                 use_exp_with_loss = 0, get_fidelity = 0, use_defense = 0, get_intersection = 0, epsilon=0,
-                 num_exp_in_each_split=10, get_predicted_labels=0, path = None, released_model = None):
-    data_name = "chameleon"
-    data = read_chameleon_dataset(dataset)
+# def load_chameleon(dataset, use_exp=False, concat_feat_with_exp=False, exp_only_as_feature=False, exp_type="grad",
+#                  use_exp_with_loss = 0, get_fidelity = 0, use_defense = 0, get_intersection = 0, epsilon=0,
+#                  num_exp_in_each_split=10, get_predicted_labels=0, path = None, released_model = None):
+#     data_name = "chameleon"
+#     data = read_chameleon_dataset(dataset)
 
 
 
-    features = data.x
-    explanations = None
-    perturbed_exp = None
-    original_exp = None
+#     features = data.x
+#     explanations = None
+#     perturbed_exp = None
+#     original_exp = None
 
-    # use explanations
-    if use_exp:
-        if exp_type == "zorro-soft":
-            exp_folder = "Chameleon_Explanations/Zorro_soft_Chameleon/feature_masks_node"
-            print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
-        elif exp_type == "zorro-hard":
-            exp_folder = "Chameleon_Explanations/Zorro_hard_Chameleon/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
-            print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
-        elif exp_type == "grad":
-            exp_folder = "Chameleon_Explanations/Grad_Chameleon/feature_masks_node="
-            print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
-        elif exp_type == "grad-untrained":
-            exp_folder = "Chameleon_Explanations/Grad_untrained_Chameleon/feature_masks_node="
-            print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
-        elif exp_type == "gnn-explainer":
-            exp_folder = "Chameleon_Explanations/GNNExplainer_Chameleon/feature_masks_node="
-            print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
-        elif exp_type == "graphlime":
-            exp_folder = "Chameleon_Explanations/GraphLime_Chameleon_0.1/feature_masks_node="
-            print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
-        # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
-        #     exp_folder = "Chameleon_Explanations/GraphLime_Chameleon_0.1/feature_masks_node="
-        #     print("xxxxxxxxxxxx This is GraphLime 0.1xxxxxxxxxxxx")
-        elif exp_type == "gradinput-untrained":
-            exp_folder = "Chameleon_Explanations/GradInput_untrained_Chameleon/feature_masks_node="
-            print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
-        else:  # for gradinput
-            exp_folder = "Chameleon_Explanations/GradInput_Chameleon/feature_masks_node="
-            print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
+#     # use explanations
+#     if use_exp:
+#         if exp_type == "zorro-soft":
+#             exp_folder = "Chameleon_Explanations/Zorro_soft_Chameleon/feature_masks_node"
+#             print("xxxxxxxxxxxx This is zorro-soft xxxxxxxxxxxx")
+#         elif exp_type == "zorro-hard":
+#             exp_folder = "Chameleon_Explanations/Zorro_hard_Chameleon/feature_masks_node=" #gcn_2_layers_explanation_t_3_r_1
+#             print("xxxxxxxxxxxx This is zorro-hard xxxxxxxxxxxx")
+#         elif exp_type == "grad":
+#             exp_folder = "Chameleon_Explanations/Grad_Chameleon/feature_masks_node="
+#             print("xxxxxxxxxxxx This is grad xxxxxxxxxxxx")
+#         elif exp_type == "grad-untrained":
+#             exp_folder = "Chameleon_Explanations/Grad_untrained_Chameleon/feature_masks_node="
+#             print("xxxxxxxxxxxx This is grad untrained xxxxxxxxxxxx")
+#         elif exp_type == "gnn-explainer":
+#             exp_folder = "Chameleon_Explanations/GNNExplainer_Chameleon/feature_masks_node="
+#             print("xxxxxxxxxxxx This is GNNExplainer xxxxxxxxxxxx")
+#         elif exp_type == "graphlime":
+#             exp_folder = "Chameleon_Explanations/GraphLime_Chameleon_0.1/feature_masks_node="
+#             print("xxxxxxxxxxxx This is GraphLime xxxxxxxxxxxx")
+#         # elif exp_type == "graphlime01":  # graphlime with rho of 0.1
+#         #     exp_folder = "Chameleon_Explanations/GraphLime_Chameleon_0.1/feature_masks_node="
+#         #     print("xxxxxxxxxxxx This is GraphLime 0.1xxxxxxxxxxxx")
+#         elif exp_type == "gradinput-untrained":
+#             exp_folder = "Chameleon_Explanations/GradInput_untrained_Chameleon/feature_masks_node="
+#             print("xxxxxxxxxxxx This is gradinput untrained xxxxxxxxxxxx")
+#         else:  # for gradinput
+#             exp_folder = "Chameleon_Explanations/GradInput_Chameleon/feature_masks_node="
+#             print("xxxxxxxxxxxx This is gradinput xxxxxxxxxxxx")
 
-        all_feat_exp = []
-        for i in range(0, len(features)):
-            if exp_type == "zorro-soft":
-                # _, feat_exp_i, _ = load_soft_mask(exp_folder, i)
-                # # # remove extra dimension
-                # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
-                if device == "cuda":
-                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
-                else:
-                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
-                feat_exp_i = feat_exp_i.cpu()
-            elif exp_type == "zorro-hard":
-                # feat_exp_i = load_minimal_nodes_and_features_sets_zorro(exp_folder, i,
-                # check_for_initial_improves=False, isChameleon=True)[0][1]
-                # # remove extra dimension
-                # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
-                if device == "cuda":
-                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
-                else:
-                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
-                feat_exp_i = feat_exp_i.cpu()
-            else:
-                if device == "cuda":
-                    feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
-                else:
-                    feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
-                feat_exp_i = feat_exp_i.cpu()
+#         all_feat_exp = []
+#         for i in range(0, len(features)):
+#             if exp_type == "zorro-soft":
+#                 # _, feat_exp_i, _ = load_soft_mask(exp_folder, i)
+#                 # # # remove extra dimension
+#                 # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
+#                 if device == "cuda":
+#                     feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+#                 else:
+#                     feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+#                 feat_exp_i = feat_exp_i.cpu()
+#             elif exp_type == "zorro-hard":
+#                 # feat_exp_i = load_minimal_nodes_and_features_sets_zorro(exp_folder, i,
+#                 # check_for_initial_improves=False, isChameleon=True)[0][1]
+#                 # # remove extra dimension
+#                 # feat_exp_i = (np.asarray(feat_exp_i)).flatten()
+#                 if device == "cuda":
+#                     feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+#                 else:
+#                     feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+#                 feat_exp_i = feat_exp_i.cpu()
+#             else:
+#                 if device == "cuda":
+#                     feat_exp_i = torch.load(exp_folder + str(i))  # load explanations
+#                 else:
+#                     feat_exp_i = torch.load(exp_folder + str(i), map_location=device)  # load explanations
+#                 feat_exp_i = feat_exp_i.cpu()
 
-            all_feat_exp.append(feat_exp_i)
-        # print("all_feat_exp", all_feat_exp)
+#             all_feat_exp.append(feat_exp_i)
+#         # print("all_feat_exp", all_feat_exp)
 
-        # convert list of arrays to single array!
-        # if exp_type == "zorro-hard":
-        #     all_feat_exp = np.stack(all_feat_exp, axis=0)
-        #     all_feat_exp = all_feat_exp.cpu()
-        # else:
-        all_feat_exp = np.stack(all_feat_exp, axis=0)
-        # if exp_type == "gnn-explainer" or exp_type == "grad":  # remove extra dimension
-        all_feat_exp = np.squeeze(all_feat_exp) #seems like all of the explanations have extra dim
+#         # convert list of arrays to single array!
+#         # if exp_type == "zorro-hard":
+#         #     all_feat_exp = np.stack(all_feat_exp, axis=0)
+#         #     all_feat_exp = all_feat_exp.cpu()
+#         # else:
+#         all_feat_exp = np.stack(all_feat_exp, axis=0)
+#         # if exp_type == "gnn-explainer" or exp_type == "grad":  # remove extra dimension
+#         all_feat_exp = np.squeeze(all_feat_exp) #seems like all of the explanations have extra dim
 
-        # print("features", features) #floating number
-        print("features.shape", features.shape) #(3783, 8)
+#         # print("features", features) #floating number
+#         print("features.shape", features.shape) #(3783, 8)
 
-        print(all_feat_exp.shape) #(3783, 8)
+#         print(all_feat_exp.shape) #(3783, 8)
 
-        # concert to float tensor
-        exp_features = torch.FloatTensor(all_feat_exp)
+#         # concert to float tensor
+#         exp_features = torch.FloatTensor(all_feat_exp)
 
-        # plot_explanations(exp_features, exp_type, data_name, data.y)
+#         # plot_explanations(exp_features, exp_type, data_name, data.y)
 
-        # Defense. Change the explanation vector here!
-        if use_defense != 0:
-            original_exp = exp_features  # make a copy of this
-            exp_features = split_explanation(exp_features, num_exp_in_each_split, eps=epsilon, defense_type=use_defense)
-            perturbed_exp = exp_features
-        # elif use_defense == 2: #multi piecewise only
-        #     exp_features = split_explanation(exp_features, 0, defense_type=use_defense)
+#         # Defense. Change the explanation vector here!
+#         if use_defense != 0:
+#             original_exp = exp_features  # make a copy of this
+#             exp_features = split_explanation(exp_features, num_exp_in_each_split, eps=epsilon, defense_type=use_defense)
+#             perturbed_exp = exp_features
+#         # elif use_defense == 2: #multi piecewise only
+#         #     exp_features = split_explanation(exp_features, 0, defense_type=use_defense)
 
 
-        if use_exp_with_loss == 1:
-            features = features
-            explanations = exp_features
-            print("********************** using explanations with the loss function ********************** ")
-        elif get_fidelity == 1:
-            features = features
-            explanations = exp_features
-            print("Run fidelity: explanation = explanation, features = features")
-        elif exp_only_as_feature:
-            features = exp_features  # i.e using only explanations
-            print("explanation now features", features)
-            print("explanation now features", features.shape)
-            print("********************** Explanation only **********************")
-        else:
-            # concat features
-            if concat_feat_with_exp:
-                final_feature = torch.cat((features, exp_features), 1)
-                print("********************** Concat feat and exp **********************")
-            else:
-                # Do element wise multiplication of features and explanations!
-                final_feature = torch.mul(features, exp_features)
-                print("********************** Elem feat and exp **********************")
-            # print(final_feature)
-            # print(final_feature.shape)
-            features = final_feature
+#         if use_exp_with_loss == 1:
+#             features = features
+#             explanations = exp_features
+#             print("********************** using explanations with the loss function ********************** ")
+#         elif get_fidelity == 1:
+#             features = features
+#             explanations = exp_features
+#             print("Run fidelity: explanation = explanation, features = features")
+#         elif exp_only_as_feature:
+#             features = exp_features  # i.e using only explanations
+#             print("explanation now features", features)
+#             print("explanation now features", features.shape)
+#             print("********************** Explanation only **********************")
+#         else:
+#             # concat features
+#             if concat_feat_with_exp:
+#                 final_feature = torch.cat((features, exp_features), 1)
+#                 print("********************** Concat feat and exp **********************")
+#             else:
+#                 # Do element wise multiplication of features and explanations!
+#                 final_feature = torch.mul(features, exp_features)
+#                 print("********************** Elem feat and exp **********************")
+#             # print(final_feature)
+#             # print(final_feature.shape)
+#             features = final_feature
 
-    G = convert.to_networkx(data, to_undirected=True)
-    # print(nx.info(G))
-    # print("num classes". max(data.y.numpy()) + 1)
-    original_adj = nx.adjacency_matrix(G).todense()
+#     G = convert.to_networkx(data, to_undirected=True)
+#     # print(nx.info(G))
+#     # print("num classes". max(data.y.numpy()) + 1)
+#     original_adj = nx.adjacency_matrix(G).todense()
 
-    # Assumption that the attacker can retrive labels from the released model.
-    # We used the default features for extracting the labels
-    if get_predicted_labels == 1:
-        data.y = get_pretrained_labels(path, released_model, data.x, data.edge_index, data.y)
+#     # Assumption that the attacker can retrive labels from the released model.
+#     # We used the default features for extracting the labels
+#     if get_predicted_labels == 1:
+#         data.y = get_pretrained_labels(path, released_model, data.x, data.edge_index, data.y)
 
-    # return features, nfeats, labels, nclasses, train_mask, val_mask, test_mask, original_adj
-    if use_exp_with_loss == 1:
-        return explanations, features, features.shape[1], data.y, max(
-            data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, original_adj, path
+#     # return features, nfeats, labels, nclasses, train_mask, val_mask, test_mask, original_adj
+#     if use_exp_with_loss == 1:
+#         return explanations, features, features.shape[1], data.y, max(
+#             data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, original_adj, path
 
-    elif get_intersection == 1:
-        # Note that to run this, use_defense has to be set
-        return original_exp, perturbed_exp
+#     elif get_intersection == 1:
+#         # Note that to run this, use_defense has to be set
+#         return original_exp, perturbed_exp
 
-    elif get_fidelity == 1: #get_fidelity
-        return explanations, features, features.shape[1], data.y, max(
-            data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, data.edge_index, path
-    else:
-        # default
-        return features, features.shape[1], data.y, max(
-            data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, original_adj, path
+#     elif get_fidelity == 1: #get_fidelity
+#         return explanations, features, features.shape[1], data.y, max(
+#             data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, data.edge_index, path
+#     else:
+#         # default
+#         return features, features.shape[1], data.y, max(
+#             data.y.numpy()) + 1, data.train_mask, data.val_mask, data.test_mask, original_adj, path
 
 
 
@@ -960,23 +960,23 @@ def load_data(args):
                             path = "./saved_models/GCN/Creditgcn_2_layers.pt", released_model = released_model)
         # "./saved_models/GCN/Credit_.pth.tar"
 
-    elif dataset_str == "chameleon":
-        nfeats = 128
-        nclasses = 5
+#     elif dataset_str == "chameleon":
+#         nfeats = 128
+#         nclasses = 5
 
-        released_model = GCN_PyG(in_channels=nfeats, hidden_channels=args.hidden, out_channels=nclasses,
-                                   num_layers=args.nlayers, dropout=args.dropout2, dropout_adj=args.dropout_adj2,
-                                   sparse=args.sparse)
+#         released_model = GCN_PyG(in_channels=nfeats, hidden_channels=args.hidden, out_channels=nclasses,
+#                                    num_layers=args.nlayers, dropout=args.dropout2, dropout_adj=args.dropout_adj2,
+#                                    sparse=args.sparse)
 
 
 
-        return load_chameleon("./Dataset/Chameleon/", use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
-                            exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method,
-                            use_exp_with_loss = args.use_exp_as_reconstruction_loss, get_fidelity = args.get_fidelity,
-                            use_defense = args.use_defense, get_intersection=args.get_intersection,
-                            epsilon=args.epsilon, num_exp_in_each_split=args.num_exp_in_each_split,
-                            get_predicted_labels=args.get_predicted_labels,
-                            path = "./saved_models/GCN/Chameleon_.pth.tar", released_model = released_model)
+#         return load_chameleon("./Dataset/Chameleon/", use_exp=use_exp, concat_feat_with_exp=concat_feat_with_exp,
+#                             exp_only_as_feature=exp_only_as_feature, exp_type=args.explanation_method,
+#                             use_exp_with_loss = args.use_exp_as_reconstruction_loss, get_fidelity = args.get_fidelity,
+#                             use_defense = args.use_defense, get_intersection=args.get_intersection,
+#                             epsilon=args.epsilon, num_exp_in_each_split=args.num_exp_in_each_split,
+#                             get_predicted_labels=args.get_predicted_labels,
+#                             path = "./saved_models/GCN/Chameleon_.pth.tar", released_model = released_model)
 
     elif dataset_str == "cora_ml":
         nfeats = 300
