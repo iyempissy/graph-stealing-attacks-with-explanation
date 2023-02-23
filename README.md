@@ -228,6 +228,21 @@ python3 main.py -model fidelity -get_fidelity 1 -dataset {dataset-name} -explana
 python3 main.py -model exp_intersection -get_intersection 1 -dataset {dataset-name} -explanation_method {explainer} -ntrials 10 -use_defense 5 -epsilon {eps}
 ```
 
+## Citation
+If you use this code or want to build on this research, please cite our paper:
+
+```BibTeX
+@article{olatunji-gsef2023,
+  title={Private Graph Extraction via Feature Explanations},
+  author={Olatunji, Iyiola E and Rathee, Mandeep and Funke, Thorben and Khosla, Megha}
+  journal={Proceedings on Privacy Enhancing Technologies},
+  year={2023},
+  volume={2023},
+  number={2},
+  address={Lausanne, Switzerland}
+}
+```
+
 ### License
 Copyright © 2022, Olatunji Iyiola Emmanuel.
 Released under the [MIT license](LICENSE).
